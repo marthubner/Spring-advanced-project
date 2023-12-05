@@ -1,7 +1,6 @@
 package com.greenfox.advancedspringproject.util;
 
 import com.greenfox.advancedspringproject.config.Constants;
-import com.greenfox.advancedspringproject.service.MovieApi;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Retrofit;
@@ -18,13 +17,14 @@ public class RetrofitUtil {
     private static OkHttpClient.Builder httpClient
             = new OkHttpClient.Builder();
 
-    public static <T> T getRetrofitInstance(Class<T> serviceClass){
-        if(retrofit == null) {
+    public static <S> S createService(Class<S> serviceClass, String token){
+        if(token != null) {
             httpClient.interceptors().clear();
             httpClient.addInterceptor(chain -> {
                 Request original = chain.request();
                 Request request = original.newBuilder()
-                        .header("Authorization", Constants.API_TOKEN)
+                        .header("Authorization", token)
+                        .header("accept", "application/json")
                         .build();
                 return chain.proceed(request);
             });
