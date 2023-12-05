@@ -20,6 +20,6 @@ public class MovieController {
     @GetMapping("/")
     @ResponseBody
     public List<Movie> index() {
-        return movieService.getMovies();
+        return movieService.getMovies().results();
     }
 }

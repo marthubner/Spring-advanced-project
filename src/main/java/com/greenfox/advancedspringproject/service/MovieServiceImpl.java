@@ -1,5 +1,6 @@
 package com.greenfox.advancedspringproject.service;
 
+import com.greenfox.advancedspringproject.dots.MoviesListDto;
 import com.greenfox.advancedspringproject.model.Movie;
 import com.greenfox.advancedspringproject.util.RetrofitUtil;
 import org.springframework.stereotype.Component;
@@ -20,17 +21,17 @@ public class MovieServiceImpl {
         movieApi = retrofit.create(MovieApi.class);
     }
 
-    public List<Movie> getMovies() {
-        List<Movie> movies = new ArrayList<>();
-        Call<List<Movie>> getMoviesCall = movieApi.getMovies();
+    public MoviesListDto getMovies() {
+        MoviesListDto movieList = null;
+        Call<MoviesListDto> getMoviesList = movieApi.getMovies();
         try {
-            Response<List<Movie>> response = getMoviesCall.execute();
+            Response<MoviesListDto> response = getMoviesList.execute();
             if(response.isSuccessful() && response.body() != null) {
-                movies = response.body();
+                movieList = response.body();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return movies;
+        return movieList;
     }
 }

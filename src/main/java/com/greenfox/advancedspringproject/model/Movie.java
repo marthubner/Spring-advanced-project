@@ -18,5 +18,5 @@ public class Movie {
     private boolean adult;
     private String overview;
     private String title;
-    private Date release_date;
+    private String release_date;
 }
