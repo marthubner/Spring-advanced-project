@@ -4,11 +4,21 @@ import com.greenfox.advancedspringproject.dots.MoviesListDto;
 import com.greenfox.advancedspringproject.model.Movie;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 import java.util.List;
 
 public interface MovieApi {
 
-    @GET("3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200&api_key=2e7dc55c40e96fb38896a8e98e83d413")
-    public Call<MoviesListDto> getMovies();
+    @GET("3/discover/movie")
+    public Call<MoviesListDto> getMovies(
+            @Query("include_adult") boolean include_adult,
+            @Query("include_video") boolean include_video,
+            @Query("language") String language,
+            @Query("page") int page,
+            @Query("sort_by") String sort_by,
+            @Query("without_genres") String without_genres,
+            @Query("vote_count.gte") int vote_count,
+            @Query("api_key") String api_key
+    );
 }
