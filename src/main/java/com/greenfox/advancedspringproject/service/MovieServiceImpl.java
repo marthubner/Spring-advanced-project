@@ -2,6 +2,8 @@ package com.greenfox.advancedspringproject.service;
 
 import com.greenfox.advancedspringproject.dots.MoviesListDto;
 import com.greenfox.advancedspringproject.util.RetrofitUtil;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -9,11 +11,12 @@ import static com.greenfox.advancedspringproject.config.Constants.*;
 
 import java.io.IOException;
 @Component
+@PropertySource("classpath:application.properties")
 public class MovieServiceImpl {
     private MovieApi movieApi;
 
-    public MovieServiceImpl() {
-        movieApi = RetrofitUtil.createService(MovieApi.class, API_TOKEN);
+    public MovieServiceImpl(@Value("${API_TOKEN}") String token) {
+        movieApi = RetrofitUtil.createService(MovieApi.class, token);
     }
 
     public MoviesListDto getMovies() {

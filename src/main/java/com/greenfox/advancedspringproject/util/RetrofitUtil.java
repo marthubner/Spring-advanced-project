@@ -13,7 +13,7 @@ public class RetrofitUtil {
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create());
 
-    public static Retrofit retrofit = builder.build();
+    private static Retrofit retrofit = builder.build();
     private static OkHttpClient.Builder httpClient
             = new OkHttpClient.Builder();
 
