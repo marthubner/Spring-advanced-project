@@ -22,4 +22,10 @@ public class MovieController {
     public List<Movie> index() {
         return movieService.getMovies().results();
     }
+
+    @GetMapping("/byname")
+    @ResponseBody
+    public List<Movie> moviesByName(String name) {
+        return movieService.getMoviesByName(name).results();
+    }
 }
