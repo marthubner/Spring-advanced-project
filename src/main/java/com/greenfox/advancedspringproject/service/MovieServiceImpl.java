@@ -18,7 +18,7 @@ public class MovieServiceImpl {
     private MovieApi movieApi;
 
     public MovieServiceImpl() {
-        retrofit = RetrofitUtil.getRetrofitInstance();
+        retrofit = RetrofitUtil.retrofit;
         movieApi = retrofit.create(MovieApi.class);
     }
 
