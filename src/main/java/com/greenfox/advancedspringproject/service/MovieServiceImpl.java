@@ -22,22 +22,17 @@ public class MovieServiceImpl {
     }
 
     public MoviesListDto getMovies() {
-        MoviesListDto movieList = null;
         Call<MoviesListDto> getMoviesList = movieApi.getMovies(INCLUDE_ADULT, INCLUDE_VIDEO, LANGUAGE, PAGE, SORT_BY, WITHOUT_GENRES, VOTE_COUNT);
-        try {
-            Response<MoviesListDto> response = getMoviesList.execute();
-            if (response.isSuccessful() && response.body() != null) {
-                movieList = response.body();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return movieList;
+        return getMoviesListDto(getMoviesList);
     }
 
     public MoviesListDto getMoviesByName(String name) {
-        MoviesListDto movieList = null;
         Call<MoviesListDto> getMoviesList = movieApi.getMoviesByName(name, INCLUDE_ADULT, LANGUAGE, PAGE);
+        return getMoviesListDto(getMoviesList);
+    }
+
+    private MoviesListDto getMoviesListDto(Call<MoviesListDto> getMoviesList) {
+        MoviesListDto movieList = null;
         try {
             Response<MoviesListDto> response = getMoviesList.execute();
             if (response.isSuccessful() && response.body() != null) {
