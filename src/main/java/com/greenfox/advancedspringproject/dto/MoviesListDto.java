@@ -4,5 +4,5 @@ import com.greenfox.advancedspringproject.model.Movie;
 
 import java.util.List;
 
-public record MoviesListDto(List<Movie> results) {
+public record MoviesListDto(Integer page, List<Movie> results, Integer total_pages) {
 }

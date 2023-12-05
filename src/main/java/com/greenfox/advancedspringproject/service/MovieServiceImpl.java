@@ -26,8 +26,8 @@ public class MovieServiceImpl {
         return getMoviesListDto(getMoviesList);
     }
 
-    public MoviesListDto getMoviesByName(String name) {
-        Call<MoviesListDto> getMoviesList = movieApi.getMoviesByName(name, INCLUDE_ADULT, LANGUAGE, PAGE);
+    public MoviesListDto getMoviesByName(String name, int page) {
+        Call<MoviesListDto> getMoviesList = movieApi.getMoviesByName(name, INCLUDE_ADULT, LANGUAGE, page);
         return getMoviesListDto(getMoviesList);
     }
 
