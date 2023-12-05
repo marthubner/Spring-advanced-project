@@ -1,12 +1,9 @@
 package com.greenfox.advancedspringproject.service;
 
 import com.greenfox.advancedspringproject.dots.MoviesListDto;
-import com.greenfox.advancedspringproject.model.Movie;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-
-import java.util.List;
 
 public interface MovieApi {
 
@@ -18,7 +15,7 @@ public interface MovieApi {
             @Query("page") int page,
             @Query("sort_by") String sort_by,
             @Query("without_genres") String without_genres,
-            @Query("vote_count.gte") int vote_count,
-            @Query("api_key") String api_key
+            @Query("vote_count.gte") int vote_count
+//            @Query("api_key") String api_key
     );
 }
