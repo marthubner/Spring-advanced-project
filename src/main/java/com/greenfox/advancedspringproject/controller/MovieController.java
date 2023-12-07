@@ -19,6 +19,12 @@ public class MovieController {
         this.movieService = movieService;
     }
 
+    @GetMapping("/hello")
+    @ResponseBody
+    public String hello() {
+        return "Hello World";
+    }
+
     @GetMapping("/")
     @ResponseBody
     public List<Movie> index() {
@@ -29,8 +35,6 @@ public class MovieController {
     @ResponseBody
     public List<Movie> moviesByName(String name) {
         List<Movie> movies = new ArrayList<>();
-        Movie[] mtype = {};
-        movies.toArray(mtype);
         int total_pages = movieService.getMoviesByName(name, Constants.PAGE).total_pages();
         for (int i = 1; i <= total_pages; i++) {
             movies.addAll(movieService.getMoviesByName(name, i).results());
