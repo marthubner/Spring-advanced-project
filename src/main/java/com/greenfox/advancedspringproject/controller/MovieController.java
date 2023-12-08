@@ -1,31 +1,40 @@
 package com.greenfox.advancedspringproject.controller;
 
+import com.greenfox.advancedspringproject.auth.model.AuthenticationRequest;
+import com.greenfox.advancedspringproject.auth.service.AuthenticationService;
 import com.greenfox.advancedspringproject.config.Constants;
 import com.greenfox.advancedspringproject.model.Movie;
 import com.greenfox.advancedspringproject.service.MovieService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 public class MovieController {
 
     private final MovieService movieService;
 
-    public MovieController(MovieService movieService) {
-        this.movieService = movieService;
+    private final AuthenticationService authenticationService;
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 
-    @GetMapping("/hello")
-    @ResponseBody
-    public String hello() {
-        return "Hello World";
+    @PostMapping("/login")
+    public String login(@RequestBody AuthenticationRequest request) {
+        authenticationService.authenticate(request);
+        return "redirect:/movie";
     }
 
-    @GetMapping("/")
+    @GetMapping("/movie")
     @ResponseBody
     public List<Movie> index() {
         return movieService.getMovies().results();
