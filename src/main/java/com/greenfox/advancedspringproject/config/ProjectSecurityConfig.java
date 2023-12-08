@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -24,14 +25,23 @@ public class ProjectSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request
-                        .requestMatchers("/api/v1/auth/**", "/login")
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated())
-                .formLogin(Customizer.withDefaults())
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .authorizeHttpRequests(request -> request
+//                        .requestMatchers("/api/v1/auth/**", "/login")
+//                        .permitAll()
+//                        .anyRequest()
+//                        .authenticated()
+                .authorizeHttpRequests((authorize) ->
+                        authorize.anyRequest().authenticated()
+                ).formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/")
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .permitAll())
+//                .sessionManagement(session -> session
+//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

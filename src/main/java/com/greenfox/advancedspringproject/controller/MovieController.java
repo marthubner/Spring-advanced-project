@@ -23,9 +23,18 @@ public class MovieController {
 
     private final AuthenticationService authenticationService;
 
+    @GetMapping("/")
+    public String greeting() {
+        return "index";
+    }
     @GetMapping("/login")
     public String login() {
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "redirect:/login";
     }
 
     @PostMapping("/login")
